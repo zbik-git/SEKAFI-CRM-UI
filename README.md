@@ -1,4 +1,4 @@
-# Sekafi UI - CRM Raports
+# Sekafi CRM - UI Raports
 
 
 ![image info](./src/assets/preview.jpg)
