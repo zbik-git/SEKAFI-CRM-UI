@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+
+
+
     <div id="nav">
       <router-link to="/">[PU-A]</router-link> |
       <router-link to="/jobscompleted">[PU-W]</router-link> |
@@ -12,11 +15,19 @@
      
     </div>
     <router-view/>
+   
     
   </div>
 </template>
 
 <script>
+export default {
+
+  // onmounted(){
+  //   console.log("APP", process.env.VUE_APP_GRAPHQL_HTTP)
+  // }
+
+}
 
 
 </script>

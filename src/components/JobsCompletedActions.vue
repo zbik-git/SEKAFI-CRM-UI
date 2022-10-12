@@ -1,7 +1,7 @@
 ﻿<template>
   <div id="jobs-completed-actions">
     <h1> Przeglądy wykonane [PU-W] </h1>
-
+    <div>yrl{{URLTOKEN}}</div>
     <div>
       <label for="start">Od daty:</label>
       <input type="date" id="start" name="trip-start"
@@ -88,6 +88,7 @@
       </tbody>
       <tfoot class="tfoot"></tfoot>
     </table>
+    
   </div>
 </template>
 
@@ -112,9 +113,9 @@ export default {
       checkedRegisters: [],
       cache: null,
       selected: null,
-      quantity: 1,
-      FAKTUROWNIA_API_URL: process.env.FAKTUROWNIA_API_URL,
-      FAKTUROWNIA_API_TOKEN: process.env.FAKTUROWNIA_API_TOKEN,
+      quantity: 1
+  
+      
 
 
     }
@@ -156,8 +157,8 @@ export default {
 
       if(confirm("Do you really want to ?")) { 
 
-        const url = this.FAKTUROWNIA_API_URL
-        const apiToken = this.FAKTUROWNIA_API_TOKEN
+        const url = process.env.VUE_APP_FAKTUROWNIA_API_URL
+        const apiToken = process.env.VUE_APP_FAKTUROWNIA_API_TOKEN
 
         try {    
           return await fetch(url, {
@@ -214,7 +215,7 @@ export default {
 
     paginatedFetch: async function(
       filteredNip = null,
-      url = `https://ambergrupa.fakturownia.pl/clients.json?api_token=${this.FAKTUROWNIA_API_TOKEN}`,
+      url = "https://ambergrupa.fakturownia.pl/clients.json?api_token=" + process.env.VUE_APP_FAKTUROWNIA_API_TOKEN,
       page = 1,
       previousResponse = this.users
       ) {

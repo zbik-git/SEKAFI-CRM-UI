@@ -198,7 +198,7 @@ export default {
   this.setTripEnd()
   this.city = this.$route.query.city || ""
   this.isNotWarsaw = this.$route.query.noWarsaw || ""
-  console.log(process.env.FAKTUROWNIA_API_URL, this.env)
+  console.log("actions", process.env.VUE_APP_GRAPHQL_HTTP)
   }
   
 
