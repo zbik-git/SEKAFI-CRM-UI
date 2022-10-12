@@ -12,7 +12,7 @@ Raporty generowane przez dashbort to:
  - Raport wykonanych odczytów likwidacyjnych. 
 
 Dodatkowe funkcjonalności: 
- - Możliwość wystawienie FV z serwisu fakturownia.pl do zakończonych akcji.
+ - Możliwość wystawienie FV przez API fakturownia.pl do zakończonych akcji.
 
 
 #### Powered by
