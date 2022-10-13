@@ -47,19 +47,13 @@
             <div v-else>
               <button @click="setEndingDate(register.NR_UNIKAT)"> set </button>
             </div>
-          
           </td>
-          
           <td >
-            
-            
             <div>
               <div v-if="isEditingText == register.NR_UNIKAT">
                 <input 
                 type="text" 
                 v-model="isEditing" 
-                
-                
                 />
                 <button @click="(()=> isEditingText = [])">
                 cancel
@@ -72,44 +66,29 @@
               <div v-else>
                 <div> {{ register.NR_FAKTURY }} </div>
                 <div v-if="isEditingText.length < '1'">
-                  
                   <input type="checkbox" :id="register.NR_UNIKAT" :value="register.NR_UNIKAT" v-model="isEditingText">
-
                 </div>
               </div>
             </div>
         </td>
-
           <td>
               <div >
                 {{ register.RECYKLING }}
               </div>
-
               <div >
-
                 <button @click="setRecyclingPlan(register.NR_UNIKAT)">
                    set 
                 </button>
-              </div>
-        
-            
-          
-          
-          
+              </div>         
           </td>
           <td>{{ register.R_DAT? register.R_DAT.slice(0, 10) : "--" }}</td>
-          
           <td >
-            
-            
             <div>
               <div v-if="isEditingTextBox == register.NR_UNIKAT">
                 <input 
                 type="text" 
                 v-model="isEditingBox"
                 ref="boxRef"
-                
-                
                 />
                 <button @click="(()=> isEditingTextBox = [])">
                 cancel
@@ -118,18 +97,14 @@
                   save
                 </button>
               </div>
-           
               <div v-else>
                 <div> {{ register.TRESC_OSTRZEZENIA }} </div>
                 <div v-if="isEditingTextBox.length < '1'">
-                  
                   <input type="checkbox" :id="register.NR_UNIKAT" :value="register.NR_UNIKAT" v-model="isEditingTextBox">
-
                 </div>
               </div>
             </div>
         </td>
-         
         </tr>
       </tbody>
       <tfoot class="tfoot"></tfoot>
@@ -158,8 +133,6 @@ export default {
       comment: [],
       locationName: '',
       edit: "test"
-   
-     
     }
   },
   methods: {
@@ -178,22 +151,14 @@ export default {
             uText: this.isEditing,
             noU: this.isEditingText[0],
           }
-          
         })
-
       } catch(e) {
-
         console.log(e)
       }
-     
       this.isEditing = ''
       this.isEditingText = []
     },
-    
-    
-
     async editTextBox() {
-      
       try {
         await this.$apollo.mutate({
           // Query
@@ -208,11 +173,8 @@ export default {
             uText: this.isEditingBox,
             noU: this.isEditingTextBox[0],
           }
-          
         })
-
       } catch(e) {
-
         console.log(e)
       }
      
@@ -220,7 +182,6 @@ export default {
       this.isEditingTextBox = []
     },
     async setEndingDate(noU) {
-      
       try {
         await this.$apollo.mutate({
           // Query
@@ -232,22 +193,17 @@ export default {
           }`,
           // Parameters
           variables: {
-
             noU: noU,
           }
           
         })
 
       } catch(e) {
-
         console.log(e)
       }
-     
-     
     },
 
     async setRecyclingPlan(noU) {
-      
       try {
         await this.$apollo.mutate({
           // Query
@@ -259,25 +215,15 @@ export default {
           }`,
           // Parameters
           variables: {
-
             noU: noU,
           }
-          
         })
-
       } catch(e) {
-
         console.log(e)
       }
-     
-     
     }
-
-
   },
   computed: {
-
-
     userSerchRegisterList() {
       return this.closeRegistersLists?.filter((register) => {
           if(this.userSearchQuery) {
@@ -299,20 +245,15 @@ export default {
               return true
           }
       }).filter((reg) => this.isCompleted ? reg.DATA_WYDANIA == "--" : true)
-       
+    
         //  return this.closeRegistersLists?.filter(register => this.userSearchQuery ? register.NIP === this.userSearchQuery : true) 
         //  .filter(register => this.boxNumber ? register?.TRESC_OSTRZEZENIA?.includes(this.boxNumber) : true)
-    
-    
     }
   }
 };
 
 </script>
-
 <style scoped>
-
-
 
 /* th {
   background-color: lightslategray;
@@ -322,18 +263,15 @@ export default {
 table tr:nth-child(even) {
   background: rgb(223, 215, 215);
 } */
-
 .closed-device {
   background-color: rgb(143, 125, 125);
 
 }
-
 .search-form {
   padding: 20 px;
   margin: 30 px;
   
 }
-
 
 table,
 th,
@@ -352,6 +290,4 @@ td {
 
 
 }
-
-
 </style>

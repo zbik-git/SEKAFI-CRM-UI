@@ -6,31 +6,22 @@
       <label for="start">Od daty:</label>
       <input type="date" id="start" name="trip-start"
        v-model="tripStart"
-       min="2021-07-01" max="2023-12-31">
-
+       min="2021-07-01" max="2023-12-31"
+       >
       <label for="end">Do daty: </label>
       <input type="date" id="end" name="trip-end"
        v-model="tripEnd"
-       min="2021-07-01" max="2023-12-31">
+       min="2021-07-01" max="2023-12-31"
+       >
     </div>
-
     <div v-if="response"> <p> response {{ response }} </p> 
     <a :href="response.view_url">FV - podglad </a>
       <button @click="createComment">
         --add FV NUMBER as comment--
       </button>
-    
-      
-    
     </div>
-
- 
-
     <div> {{checkedRegisters}} - ilość: <span v-if="checkedRegisters"> {{ checkedRegisters.length }} </span>
-    
- 
     </div>
-
 
     <div id="select">
       <select v-model="selected">
@@ -38,9 +29,6 @@
         {{ option.name.slice(0, 30) }}
         </option>
       </select>
-      
-     
-
     </div>
 
     <table class="table-main" >
@@ -82,13 +70,11 @@
           <td >
                <!-- <input  type="text" v-model="quantity" style="width: 15px; align-items: center; justify-items: center"/>  -->
                <input type="checkbox" :id="register.NR_UNIKAT" :value="register.NR_UNIKAT" v-model="checkedRegisters" />
-
           </td>
         </tr>
       </tbody>
       <tfoot class="tfoot"></tfoot>
     </table>
-    
   </div>
 </template>
 
@@ -114,10 +100,6 @@ export default {
       cache: null,
       selected: null,
       quantity: 1
-  
-      
-
-
     }
   },
   methods: {
@@ -138,28 +120,18 @@ export default {
             fv: this.response.number,
             noU: this.checkedRegisters
           }
-          
         })
 
       } catch(e) {
-
         console.log(e)
       }
-     
-
     },
     
-
-
-
-
     createInvoice: async function createInvoice(id) {
 
       if(confirm("Do you really want to ?")) { 
-
         const url = process.env.VUE_APP_FAKTUROWNIA_API_URL
         const apiToken = process.env.VUE_APP_FAKTUROWNIA_API_TOKEN
-
         try {    
           return await fetch(url, {
             body: JSON.stringify({
@@ -176,7 +148,6 @@ export default {
                   quantity: this.checkedRegisters.length,
                   quantity_unit: "szt",
                   description: this.checkedRegisters,
-             
                 }]
               }
             }),
@@ -191,8 +162,7 @@ export default {
             console.error(`Error ! ${err}`)
         }finally{ 
           //this.checkedRegisters = []
-          alert(`Wystawiono FV ${this.response.view_url}`)        
-          
+          alert(`Wystawiono FV ${this.response.view_url}`)         
         }
       }
     },
@@ -200,17 +170,11 @@ export default {
     getUsers: async function(userNip) {
       
       if(confirm("Do you really want to ?")) {
-
         this.response = null
-
         if(this.users.filter(e => e.tax_no === userNip).length > 0){
           this.filteredUser = this.users.filter(e => e.tax_no === userNip)
-      
-          
         }
-
       }
-
     },
 
     paginatedFetch: async function(
@@ -219,49 +183,31 @@ export default {
       page = 1,
       previousResponse = this.users
       ) {
-
-       
       return fetch(`${url}&page=${page}`) // Append the page number to the base URL
         .then(response => this.users = response.json())
         .then(newResponse => {
           const response = [...previousResponse, ...newResponse]; // Combine the two arrays
-
           if (newResponse.length !== 0) {
             page++;
-
             return this.paginatedFetch(filteredNip, url, page, response);
           }
-
           console.log(response)
           return this.users = response
         });
-      
     }
-
-    
-
-
-
   },
  
   created() { 
     this.paginatedFetch()
-    
-   
-    
   },
   
   computed: {
-
 
     filteredRegisters() {
       if(this.userSearchQuery) {
         return this.finishedJobs?.filter(
         register => this.userSearchQuery ? (register.NIP === this.userSearchQuery && register.DATA_WYKONANIA >= this.tripStart && register.DATA_WYKONANIA <= this.tripEnd ) || register.NIP === this.userSearchQuery2 : register)
-        
-        
       }
-
       else if(this.locationName){
          return this.finishedJobs?.filter(
            register => (register?.NAZWA_MIEJSCA?.toLowerCase().includes(this.locationName.toLowerCase())) && (register.DATA_WYKONANIA >= this.tripStart && register.DATA_WYKONANIA <= this.tripEnd))
@@ -269,10 +215,8 @@ export default {
       else{
         return this.finishedJobs?.filter(register => register.DATA_WYKONANIA >= this.tripStart && register.DATA_WYKONANIA <= this.tripEnd)
       }
-
     }
-  }
-
+   }
   }
   
   </script>
@@ -294,8 +238,6 @@ table tr:nth-child(even) {
   position: -webkit-sticky;
   position: sticky;
   top: 00px;
-
-
 }
 
 table,
@@ -308,7 +250,6 @@ td {
 }
 
 #products-table {
-
   width: auto;
   height: auto;
   overflow:scroll;
@@ -320,10 +261,9 @@ td {
 }
 
 
+</style>
 
-  </style>
 
-},
 
 
 

@@ -1,24 +1,19 @@
 <template>
   <div id="new-fiscaliztions-list">
     <h1> Nowe instalacje [F]</h1>
-
-      
     <div>
       <label for="start">Od daty:</label>
       <input type="date" id="start" name="trip-start"
        v-model="tripStart"
-       min="2021-07-01" max="2023-12-31">
-
+       min="2021-07-01" max="2023-12-31"
+       >
       <label for="end">Do daty: </label>
-      <input type="date" id="end" name="trip-end"
+      <input type="date" id="end" 
+      name="trip-end"
        v-model="tripEnd"
-       min="2021-07-01" max="2023-12-31">
-
-
-
+       min="2021-07-01" max="2023-12-31"
+       >
     </div>
-    
- 
     <table>
       <thead class="header">
         <tr>
@@ -30,13 +25,10 @@
           <th>NAZWA_MIEJSCA <input type="text" v-model="locationName"/></th>
           <th>ADRES</th>
           <th>WYKONAL_FISKALIZACJE</th>
-         
           <th>USLUGA_WYKONANA</th>
           <th>DATA_WYKONANIA</th>
           <th>fv </th>
           <th>KODY </th>
-   
-       
         </tr>
       </thead>
       <tbody>
@@ -52,15 +44,11 @@
           <td>{{ register.USLUGA_WYKONANA }}</td>
           <td>{{ register.DATA_WYKONANIA.slice(0, 10)}}</td>
           <td>
-            
-            
             <div>
               <div v-if="isEditingText == register.NR_UNIKAT">
                 <input 
                 type="text" 
-                v-model="isEditing" 
-                
-                
+                v-model="isEditing"  
                 />
                 <button @click="(()=> isEditingText = [])">
                 cancel
@@ -69,25 +57,15 @@
                   save
                 </button>
               </div>
-           
               <div v-else>
                 <div> {{ register.KOMENTARZ }} </div>
                 <div v-if="isEditingText.length < '1'">
-                  
                   <input type="checkbox" :id="register.NR_UNIKAT" :value="register.NR_UNIKAT" v-model="isEditingText">
-
                 </div>
               </div>
             </div>
-          
-          
-        
           </td>
           <td>{{ convertToPlain(register.OPIS) }}</td>
-          
-          
-
-       
         </tr>
       </tbody>
       <tfoot class="tfoot"></tfoot>
@@ -115,8 +93,6 @@ export default {
     }
   },
 
-
-
   methods: {
 
     async editText() {
@@ -136,27 +112,21 @@ export default {
           }
           
         })
-
       } catch(e) {
-
         console.log(e)
       }
-     
       this.isEditing = ''
       this.isEditingText = []
     },
-
 
     convertToPlain(rtf) {
       if (rtf) {
         rtf = rtf.replace(/\\par[d]?/g, "")
         return rtf.replace(/\{\*?\\[^{}]+}|[{}]|\\\n?[A-Za-z]+\n?(?:-?\d+)?[ ]?/g, "").trim()
-
       }
       else {
         return null
       }
-    
     }
 
   },
@@ -165,10 +135,7 @@ export default {
       if(this.userSearchQuery) {
         return this.newFiscalizations?.filter(
         register => this.userSearchQuery ? (register.NIP === this.userSearchQuery && register.DATA_WYKONANIA >= this.tripStart && register.DATA_WYKONANIA <= this.tripEnd ) || register.NIP === this.userSearchQuery2 : register)
-        
-        
       }
-
       else if(this.locationName){
          return this.newFiscalizations?.filter(
            register => (register?.NAZWA_MIEJSCA?.toLowerCase().includes(this.locationName.toLowerCase())) && (register.DATA_WYKONANIA >= this.tripStart && register.DATA_WYKONANIA <= this.tripEnd))
@@ -176,10 +143,8 @@ export default {
       else{
         return this.newFiscalizations?.filter(register => register.DATA_WYKONANIA >= this.tripStart && register.DATA_WYKONANIA <= this.tripEnd)
       }
-
     }
   }
-  
    
 };
 </script>
@@ -202,13 +167,9 @@ td {
   border: 2px solid black;
   border-collapse: collapse;
 }
-
-
 .header {
   position: -webkit-sticky;
   position: sticky;
   top: 00px;
-
-
 }
 </style>

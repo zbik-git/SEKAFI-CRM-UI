@@ -1,7 +1,6 @@
 ﻿<template>
   <div id="register-actions">
     <h1>Kasy do przeglądu [PU-A]</h1>
-
     <!-- <form class="search-form" >
     <label> ...NIP</label>
     <input 
@@ -21,9 +20,6 @@
        min="2021-11-01" max="2029-12-31">
 
       <span> [PU POZA WARSZAWĄ] <input type="checkbox" id="isNotWarsaw" v-model="isNotWarsaw"> </span>
-
-    
-
     </div>
 
     <table class="table-main">
@@ -43,7 +39,6 @@
           <th>KOMENTARZ</th>
           <th>TEL_KLIENT</th>
           <th>TEL_LOKAL</th>
-       
         </tr>
       </thead>
       <tbody id="products-table">
@@ -60,15 +55,11 @@
           <td>{{ register.NAZWA_AKCJI }}</td>
           <td>{{ new Date(register.DATA_NAST).toLocaleDateString("af") }}</td>
           <td>
-            
-            
             <div>
               <div v-if="isEditingText == register.NR_UNIKAT">
                 <input 
                 type="text" 
                 v-model="isEditing" 
-                
-                
                 />
                 <button @click="(()=> isEditingText = [])">
                 cancel
@@ -77,24 +68,17 @@
                   save
                 </button>
               </div>
-           
               <div v-else>
                 <div> {{ register.KOMENTARZ }} </div>
                 <div v-if="isEditingText.length < '1'">
-                  
                   <input type="checkbox" :id="register.NR_UNIKAT" :value="register.NR_UNIKAT" v-model="isEditingText">
-
                 </div>
               </div>
             </div>
-          
-          
         
           </td>
           <td>{{ register.TEL_KLIENT }}</td>
           <td>{{ register.TEL_LOKAL }}</td>
-
-       
         </tr>
       </tbody>
       <tfoot class="tfoot"></tfoot>
@@ -117,20 +101,14 @@ export default {
       userSearchQuery2: '',
       locationName: '',
       currentDate: null,
-      tripStart: new Date().toLocaleDateString("af"), //af , fr-CA
-									
+      tripStart: new Date().toLocaleDateString("af"), //af , fr-CA		
       tripEnd: "",
       isNotWarsaw: true,
       city:"",
       isEditing: "",
       isEditingText: [],
-   
-   
-      
-    
     }
   },
-
 
   computed: {
 
@@ -150,13 +128,9 @@ export default {
       }).filter((reg) => this.tripStart && this.tripEnd && reg.DATA_NAST >= this.tripStart && reg.DATA_NAST <= this.tripEnd)
         .filter((reg) => this.city ? reg.MIASTO.toLowerCase().includes(this.city.toLowerCase()) : true)
         .filter((reg) => this.isNotWarsaw ? reg.MIASTO !== "Warszawa" : true)
-
-    
   }}
   
   ,methods: {
-
-
 
     async editText() {
       try {
@@ -173,11 +147,8 @@ export default {
             uText: this.isEditing,
             noU: this.isEditingText[0],
           }
-          
         })
-
       } catch(e) {
-
         console.log(e)
       }
      
@@ -185,7 +156,6 @@ export default {
       this.isEditingText = []
     },
 
-     
     setTripEnd() {
       let date_now = new Date()
       date_now.setDate(date_now.getDate() + 90)
@@ -195,14 +165,14 @@ export default {
   
   },
   mounted() {
+
   this.setTripEnd()
   this.city = this.$route.query.city || ""
   this.isNotWarsaw = this.$route.query.noWarsaw || ""
   console.log("actions", process.env.VUE_APP_GRAPHQL_HTTP)
   }
-  
-
 };
+
 </script>
 
 <style scoped>
@@ -222,8 +192,6 @@ table tr:nth-child(even) {
   position: -webkit-sticky;
   position: sticky;
   top: 00px;
-
-
 }
 
 table,
@@ -236,9 +204,9 @@ td {
 }
 
 #products-table {
-
   width: auto;
   height: auto;
   overflow:scroll;
 }
+
 </style>
